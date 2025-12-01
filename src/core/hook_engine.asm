@@ -460,13 +460,14 @@ RemoveHook PROC EXPORT dwHookId:DWORD
     jz @ProtectFailed
     
     ; Restore original bytes
-    mov edi_save, edi
+    ; Save EDI on stack for thread safety
+    push edi
     mov esi, edi
     lea esi, [esi].HOOK_ENTRY.dwOriginalBytes
     mov edi, pOriginalFunc
     mov ecx, dwBytesToRestore
     rep movsb
-    mov edi, edi_save
+    pop edi
     
     ; Restore memory protection
     push OFFSET g_dwOldProtect
@@ -503,11 +504,6 @@ RemoveHook PROC EXPORT dwHookId:DWORD
     popad
     mov eax, HOOK_ERR_NOT_FOUND
     ret
-    
-    ; Local variable to preserve EDI
-    .data
-    edi_save DWORD ?
-    .code
 RemoveHook ENDP
 
 ;-------------------------------------------------------------------------------

@@ -244,8 +244,20 @@ BuildTrampoline ENDP
 ; Parameters:
 ;   [ebp+8] = pInstruction - Pointer to instruction
 ; Returns:     EAX = Length in bytes
-; Note: This is a simplified implementation. A production version would
-;       need a full x86 disassembler.
+;
+; IMPORTANT LIMITATION:
+;   This is a simplified implementation that handles only common function
+;   prologue patterns (mov edi,edi; push ebp; mov ebp,esp; etc.).
+;   A production-grade implementation would require a full x86 disassembler
+;   to properly handle:
+;   - ModR/M byte decoding
+;   - SIB (Scale-Index-Base) byte handling
+;   - Variable-length immediates and displacements
+;   - All instruction prefixes and escape sequences
+;
+;   For safety, this implementation is designed to work with Windows API
+;   functions which typically have predictable prologues. Using it on
+;   arbitrary code may result in incorrect instruction boundary detection.
 ;-------------------------------------------------------------------------------
 GetInstructionLength PROC EXPORT pInstruction:DWORD
     push ebx
