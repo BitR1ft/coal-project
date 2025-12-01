@@ -1,0 +1,36 @@
+# Build artifacts
+build/
+bin/
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.log
+
+# IDE files
+.vs/
+*.suo
+*.user
+*.vcxproj.user
+*.ncb
+*.sdf
+*.opensdf
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Debug files
+*.dmp
+
+# Package files
+*.zip
+*.tar
+*.gz
+*.rar

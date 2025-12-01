@@ -1,0 +1,74 @@
+# Educational Use License
+
+## The Stealth Interceptor - API Hooking Engine
+
+Copyright (c) 2024 Muhammad Adeel Haider & Umar Farooq
+Air University, Pakistan - BS Cyber Security (BSCYS-F24-A)
+
+---
+
+## EDUCATIONAL USE ONLY
+
+This software and associated documentation files (the "Software") are provided for educational purposes only as part of the Computer Organization and Assembly Language (COAL) course curriculum.
+
+### Permissions
+
+You are permitted to:
+
+1. **Use** - Use the Software for personal learning and educational research
+2. **Study** - Examine the source code to understand API hooking techniques
+3. **Modify** - Modify the Software for educational experimentation
+4. **Share** - Share the Software with other students for educational purposes
+
+### Restrictions
+
+You are NOT permitted to:
+
+1. **Commercial Use** - Use the Software for any commercial purpose
+2. **Malicious Use** - Use the Software for any illegal or malicious purpose
+3. **Unauthorized Access** - Use the Software on systems without authorization
+4. **Distribution** - Distribute modified versions as your own work
+5. **Warranty Claims** - Claim any warranty or support
+
+### Conditions
+
+If you use or modify this Software, you must:
+
+1. Include this license and copyright notice in all copies
+2. Clearly state any modifications you make
+3. Not remove or alter any copyright notices
+4. Use only for educational and research purposes
+5. Comply with all applicable laws and regulations
+
+### Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+### Acknowledgment
+
+By using this Software, you acknowledge that:
+
+1. You understand the techniques demonstrated may be used maliciously
+2. You will use the Software responsibly and ethically
+3. You accept full responsibility for your actions
+4. You will not use the Software to harm others
+5. You understand this is an educational tool only
+
+---
+
+## Academic Integrity Notice
+
+This project is submitted as part of the COAL course requirements at Air University. Submitting this work or substantial portions as your own academic work without proper attribution may constitute plagiarism and violate academic integrity policies.
+
+---
+
+**Authors:**
+- Muhammad Adeel Haider (Student ID: 241541)
+- Umar Farooq (Student ID: 241575)
+
+**Course:** Computer Organization and Assembly Language (COAL)
+**Program:** BS Cyber Security - 5th Semester
+**Institution:** Air University, Pakistan
+**Date:** November 2024
