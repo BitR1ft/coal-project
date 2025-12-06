@@ -66,6 +66,8 @@ MessageBoxAHookHandler PROC
     popad
     
     ; Call original via trampoline
+    ; g_pTrampolineA contains the address of executable trampoline code
+    ; MASM treats this as an indirect call: call [g_pTrampolineA]
     mov eax, [ebp+20]
     push eax
     mov eax, [ebp+16]
@@ -75,7 +77,7 @@ MessageBoxAHookHandler PROC
     mov eax, [ebp+8]
     push eax
     
-    call g_pTrampolineA
+    call g_pTrampolineA             ; Indirect call through memory
     
     mov esp, ebp
     pop ebp
@@ -132,20 +134,23 @@ InstallMessageBoxHook PROC EXPORT
     rep movsb
     
     ; Add JMP back to original + 5
-    mov BYTE PTR [edi], 0E9h
+    ; Jump back to original function after the stolen bytes
+    ; Calculation: target - current - 5 (where 5 is size of JMP instruction)
+    mov BYTE PTR [edi], 0E9h        ; JMP opcode
     mov eax, g_pOriginalMsgBoxA
-    add eax, 5
-    sub eax, edi
-    sub eax, 5
-    mov [edi+1], eax
+    add eax, 5                      ; Skip the 5 bytes we stole
+    sub eax, edi                    ; Calculate relative offset from current position
+    sub eax, 5                      ; Adjust for JMP instruction size
+    mov [edi+1], eax                ; Write the offset
     
-    ; Write JMP to our hook
+    ; Write JMP to our hook at the original function entry point
+    ; This redirects all calls to MessageBoxA to our hook handler
     mov edi, g_pOriginalMsgBoxA
-    mov BYTE PTR [edi], 0E9h
+    mov BYTE PTR [edi], 0E9h        ; JMP opcode (E9)
     mov eax, OFFSET MessageBoxAHookHandler
-    sub eax, edi
-    sub eax, 5
-    mov [edi+1], eax
+    sub eax, edi                    ; Calculate relative offset
+    sub eax, 5                      ; Adjust for JMP instruction size (5 bytes)
+    mov [edi+1], eax                ; Write the 4-byte offset after the opcode
     
     ; Flush cache
     push 5
