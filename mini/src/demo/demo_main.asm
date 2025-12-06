@@ -125,6 +125,7 @@ PrintNumber PROC dwValue:DWORD
     
     lea edi, szNumberBuffer
     mov eax, dwValue
+    xor ecx, ecx
     mov ebx, 10
     
     test eax, eax

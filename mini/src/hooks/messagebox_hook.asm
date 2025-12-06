@@ -128,11 +128,8 @@ InstallMessageBoxHook PROC EXPORT
     ; Build trampoline - Copy first 5 bytes
     mov edi, g_pTrampolineA
     mov esi, g_pOriginalMsgBoxA
-    movsb
-    movsb
-    movsb
-    movsb
-    movsb
+    mov ecx, 5
+    rep movsb
     
     ; Add JMP back to original + 5
     mov BYTE PTR [edi], 0E9h
@@ -198,11 +195,8 @@ RemoveMessageBoxHook PROC EXPORT
     ; Restore original bytes from trampoline
     mov edi, g_pOriginalMsgBoxA
     mov esi, g_pTrampolineA
-    movsb
-    movsb
-    movsb
-    movsb
-    movsb
+    mov ecx, 5
+    rep movsb
     
     ; Free trampoline
     push MEM_RELEASE
