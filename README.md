@@ -2,12 +2,14 @@
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/BitR1ft/coal-project)
 [![Platform](https://img.shields.io/badge/platform-Windows%20x86-blue.svg)]()
-[![Language](https://img.shields.io/badge/language-MASM%20x86%20Assembly-red.svg)]()
+[![Language](https://img.shields.io/badge/language-NASM%20x86%20Assembly-red.svg)]()
 [![License](https://img.shields.io/badge/license-Educational-yellow.svg)]()
+
+> **🎉 NEW: NASM Version Available!** This project now supports NASM (Netwide Assembler) for cross-platform development. See [NASM Build Guide](docs/NASM_BUILD_GUIDE.md) for details.
 
 ## 📋 Project Overview
 
-**The Stealth Interceptor** is a comprehensive API Hooking Engine developed using MASM x86 Assembly Language. This project demonstrates advanced low-level system programming techniques used in both security research and malware analysis.
+**The Stealth Interceptor** is a comprehensive API Hooking Engine developed using x86 Assembly Language. Originally written in MASM, the project has been converted to NASM for better cross-platform compatibility. This project demonstrates advanced low-level system programming techniques used in both security research and malware analysis.
 
 ### 👥 Team Members
 - **Muhammad Adeel Haider** (Student ID: 241541)
@@ -150,6 +152,12 @@ OUR HOOK HANDLER (Trampoline):
 
 ### Prerequisites
 
+#### For NASM Version (Recommended - Cross-Platform)
+- **NASM**: Download from [nasm.us](https://www.nasm.us/)
+- **Linux**: MinGW for Windows cross-compilation (`sudo apt-get install mingw-w64`)
+- **Windows**: NASM + Visual Studio OR GoLink
+
+#### For MASM Version (Windows Only)
 - **Operating System**: Windows 10/11 (x86 or x86-64 with WoW64)
 - **Visual Studio 2019/2022** with:
   - Desktop development with C++ workload
@@ -158,7 +166,29 @@ OUR HOOK HANDLER (Trampoline):
 
 ### Building the Project
 
-#### Option 1: Using Visual Studio
+#### 🎯 NASM Version (Recommended)
+
+**On Linux:**
+```bash
+# Build mini version (fully working)
+./scripts/build_nasm.sh mini
+
+# Output: mini/bin/MiniStealthInterceptor.exe
+```
+
+**On Windows:**
+```batch
+REM Build mini version
+scripts\build_nasm.bat mini
+
+REM Output: mini\bin\MiniStealthInterceptor.exe
+```
+
+**📖 For detailed NASM build instructions, see [NASM Build Guide](docs/NASM_BUILD_GUIDE.md)**
+
+#### MASM Version (Original)
+
+**Option 1: Using Visual Studio**
 ```batch
 # Open the solution file
 StealthInterceptor.sln
@@ -167,7 +197,7 @@ StealthInterceptor.sln
 Build -> Build Solution (Ctrl+Shift+B)
 ```
 
-#### Option 2: Using Command Line
+**Option 2: Using Command Line**
 ```batch
 # Run the build script
 scripts\build.bat
@@ -176,7 +206,7 @@ scripts\build.bat
 msbuild StealthInterceptor.sln /p:Configuration=Release /p:Platform=x86
 ```
 
-#### Option 3: Using Make
+**Option 3: Using Make**
 ```batch
 # Using GNU Make
 make all
@@ -184,6 +214,16 @@ make all
 
 ### Running the Demo
 
+**NASM Mini Version:**
+```batch
+# On Windows
+mini\bin\MiniStealthInterceptor.exe
+
+# On Linux with Wine
+wine mini/bin/MiniStealthInterceptor.exe
+```
+
+**MASM Full Version:**
 ```batch
 # Run the interactive demo
 bin\Release\StealthInterceptor.exe

@@ -1,12 +1,15 @@
 # 🛡️ Mini Stealth Interceptor - API Hooking Engine
 
 [![Platform](https://img.shields.io/badge/platform-Windows%20x86-blue.svg)]()
-[![Language](https://img.shields.io/badge/language-MASM%20x86%20Assembly-red.svg)]()
+[![Language](https://img.shields.io/badge/language-NASM%20x86%20Assembly-red.svg)]()
 [![License](https://img.shields.io/badge/license-Educational-yellow.svg)]()
+[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+
+> **✅ NASM Version - Fully Working!** Cross-platform assembly, builds on Linux and Windows.
 
 ## 📋 Project Overview
 
-**Mini Stealth Interceptor** is a simplified version of a comprehensive API Hooking Engine developed using MASM x86 Assembly Language. This mini project demonstrates the core concepts of low-level API hooking and serves as a proof of concept for understanding system-level programming.
+**Mini Stealth Interceptor** is a simplified version of a comprehensive API Hooking Engine developed using NASM x86 Assembly Language. This mini project demonstrates the core concepts of low-level API hooking and serves as a proof of concept for understanding system-level programming.
 
 ### 👥 Team Members
 - **Muhammad Adeel Haider** (Student ID: 241541)
@@ -123,18 +126,52 @@ OUR HOOK HANDLER (Trampoline):
 
 ### Prerequisites
 
+#### NASM Version (Current - Fully Working)
+- **NASM**: Netwide Assembler ([download](https://www.nasm.us/))
+- **Linux**: MinGW cross-compiler (`sudo apt-get install mingw-w64 gcc-mingw-w64-i686`)
+- **Windows**: NASM + any linker (Visual Studio LINK.exe or GoLink)
+
+#### MASM Version (Original)
 - **Operating System**: Windows 10/11 (x86 or x86-64 with WoW64)
 - **MASM32**: Microsoft Macro Assembler (download from http://www.masm32.com/)
 
 ### Building the Project
 
-#### Using the Build Script
+#### Using NASM (Recommended)
+
+**On Linux:**
+```bash
+# Using Makefile
+make -f Makefile_nasm all
+
+# Output: bin/MiniStealthInterceptor.exe (15KB)
+
+# Or use the build script from root
+cd ..
+./scripts/build_nasm.sh mini
+```
+
+**On Windows:**
+```batch
+REM Using build script
+..\scripts\build_nasm.bat mini
+
+REM Or manually
+nasm -f win32 -o build\obj\hook_engine_nasm.obj src\core\hook_engine_nasm.asm
+nasm -f win32 -o build\obj\messagebox_hook_nasm.obj src\hooks\messagebox_hook_nasm.asm
+nasm -f win32 -o build\obj\demo_main_nasm.obj src\demo\demo_main_nasm.asm
+link /SUBSYSTEM:CONSOLE /ENTRY:_main /OUT:bin\MiniStealthInterceptor.exe build\obj\*.obj kernel32.lib user32.lib
+```
+
+#### Using MASM (Original)
+
+**Using the Build Script:**
 ```batch
 # Run the build script
 scripts\build.bat
 ```
 
-#### Using Make
+**Using Make:**
 ```batch
 # Using GNU Make
 make all
@@ -142,10 +179,50 @@ make all
 
 ### Running the Demo
 
+**On Windows:**
 ```batch
-# Run the mini interceptor
+# Run the executable
 bin\MiniStealthInterceptor.exe
 ```
+
+**On Linux (with Wine):**
+```bash
+# Install Wine if needed
+sudo apt-get install wine wine32
+
+# Run with Wine
+wine bin/MiniStealthInterceptor.exe
+```
+
+### Interactive Menu
+
+Once running, you'll see:
+```
+==========================================
+  MINI STEALTH INTERCEPTOR
+  Simplified API Hooking Demo
+==========================================
+  By: Muhammad Adeel Haider (241541)
+      Umar Farooq (241575)
+  COAL - BS Cyber Security
+==========================================
+
+--- Main Menu ---
+1. Install MessageBox Hook
+2. Remove MessageBox Hook
+3. Test MessageBox
+4. Show Statistics
+5. Exit
+
+Choose (1-5):
+```
+
+### Usage Example
+1. Press `1` to install the MessageBox hook
+2. Press `3` to test - you'll see a MessageBox appear (intercepted!)
+3. Press `4` to view statistics showing interception count
+4. Press `2` to remove the hook
+5. Press `5` to exit
 
 ---
 
