@@ -73,7 +73,7 @@ def convert_masm_to_nasm(masm_code, filename):
             # QWORD -> dq
             line = re.sub(r'\bQWORD\b', 'dq', line)
             # DUP() syntax
-            line = re.sub(r'(\d+)\s+DUP\s*\(([^)]+)\)', r'times \\1 \\2', line)
+            line = re.sub(r'(\d+)\s+DUP\s*\(([^)]+)\)', r'times \1 \2', line)
             # <> initialization
             line = re.sub(r'<>', '0', line)
             # PTR directive
@@ -138,8 +138,8 @@ def convert_masm_to_nasm(masm_code, filename):
                 continue
             
             # Local labels starting with @
-            line = re.sub(r'@(\w+):', r'.\\1:', line)
-            line = re.sub(r'@(\w+)\b', r'.\\1', line)
+            line = re.sub(r'@(\w+):', r'.\1:', line)
+            line = re.sub(r'@(\w+)\b', r'.\1', line)
             
             # OFFSET -> just the label name in NASM
             line = re.sub(r'\bOFFSET\s+', '', line)
@@ -154,7 +154,7 @@ def convert_masm_to_nasm(masm_code, filename):
             # [reg+offset] stays [reg+offset]
             
             # Hexadecimal numbers
-            line = re.sub(r'(\W)([0-9A-F]+)h\b', r'\\10x\\2', line, flags=re.IGNORECASE)
+            line = re.sub(r'(\W)([0-9A-F]+)h\b', r'\g<1>0x\2', line, flags=re.IGNORECASE)
         
         # EQU -> equ
         line = re.sub(r'\bEQU\b', 'equ', line)
