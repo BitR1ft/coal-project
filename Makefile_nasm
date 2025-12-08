@@ -1,0 +1,62 @@
+# Makefile for The Stealth Interceptor (NASM version)
+# Cross-platform build system for Windows x86
+
+PROJECT = StealthInterceptor
+VERSION = 1.0.0
+
+# Directories
+SRC_DIR = src
+BUILD_DIR = build
+OBJ_DIR = $(BUILD_DIR)/obj
+BIN_DIR = bin/Release
+INC_DIR = include
+
+# Tools
+NASM = nasm
+LD = i686-w64-mingw32-ld
+CC = i686-w64-mingw32-gcc
+
+# Flags for Windows 32-bit
+NASMFLAGS = -f win32 -I$(INC_DIR)/
+LDFLAGS = -m i386pe --subsystem console
+CFLAGS = -m32
+
+# Windows libraries
+LIBS = -lkernel32 -luser32 -lws2_32 -ladvapi32
+
+# Note: Full project requires manual conversion of all source files
+# This Makefile structure shows how it would be built
+
+.PHONY: all clean help
+
+all:
+	@echo "========================================"
+	@echo "  The Stealth Interceptor (NASM)"
+	@echo "  Version $(VERSION)"
+	@echo "========================================"
+	@echo ""
+	@echo "Full project NASM conversion in progress."
+	@echo "For a working build, see the mini project:"
+	@echo ""
+	@echo "  cd mini && make -f Makefile_nasm"
+	@echo ""
+	@echo "The mini project demonstrates:"
+	@echo "  - NASM syntax conversion"
+	@echo "  - Windows API hooking"
+	@echo "  - Trampoline technique"
+	@echo "  - MessageBox interception"
+	@echo ""
+
+clean:
+	@echo "Cleaning..."
+	@rm -rf $(BUILD_DIR) $(BIN_DIR)
+	@echo "Clean complete."
+
+help:
+	@echo "Available targets:"
+	@echo "  all     - Show build information"
+	@echo "  clean   - Remove build artifacts"
+	@echo "  help    - Show this help"
+	@echo ""
+	@echo "To build the working mini version:"
+	@echo "  cd mini && make -f Makefile_nasm all"
