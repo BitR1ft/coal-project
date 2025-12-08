@@ -1,0 +1,89 @@
+# Makefile for Mini Stealth Interceptor (NASM)
+# Cross-platform build system for Windows x86
+
+PROJECT = MiniStealthInterceptor
+VERSION = 1.0.0
+
+# Directories
+SRC_DIR = src
+BUILD_DIR = build
+OBJ_DIR = $(BUILD_DIR)/obj
+BIN_DIR = bin
+
+# Tools
+NASM = nasm
+LD = i686-w64-mingw32-ld
+CC = i686-w64-mingw32-gcc
+
+# Flags for Windows 32-bit
+NASMFLAGS = -f win32
+LDFLAGS = -m i386pe --subsystem console
+CFLAGS = -m32
+
+# Source files (NASM versions)
+CORE_SRC = $(SRC_DIR)/core/hook_engine_nasm.asm
+HOOK_SRC = $(SRC_DIR)/hooks/messagebox_hook_nasm.asm
+DEMO_SRC = $(SRC_DIR)/demo/demo_main_nasm.asm
+
+# Object files
+CORE_OBJ = $(OBJ_DIR)/hook_engine_nasm.obj
+HOOK_OBJ = $(OBJ_DIR)/messagebox_hook_nasm.obj
+DEMO_OBJ = $(OBJ_DIR)/demo_main_nasm.obj
+
+ALL_OBJ = $(DEMO_OBJ) $(CORE_OBJ) $(HOOK_OBJ)
+
+# Windows libraries
+LIBS = -lkernel32 -luser32
+
+# Output
+TARGET = $(BIN_DIR)/$(PROJECT).exe
+
+.PHONY: all clean rebuild banner directories
+
+all: banner directories $(TARGET)
+	@echo "Build complete!"
+	@echo "Output: $(TARGET)"
+
+banner:
+	@echo "========================================"
+	@echo "  Mini Stealth Interceptor (NASM)"
+	@echo "  Version $(VERSION)"
+	@echo "========================================"
+	@echo ""
+
+directories:
+	@mkdir -p $(BUILD_DIR)
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(BIN_DIR)
+
+# Assemble
+$(OBJ_DIR)/%.obj: $(SRC_DIR)/core/%.asm
+	@echo "Assembling $<..."
+	$(NASM) $(NASMFLAGS) -o $@ $<
+
+$(OBJ_DIR)/%.obj: $(SRC_DIR)/hooks/%.asm
+	@echo "Assembling $<..."
+	$(NASM) $(NASMFLAGS) -o $@ $<
+
+$(OBJ_DIR)/%.obj: $(SRC_DIR)/demo/%.asm
+	@echo "Assembling $<..."
+	$(NASM) $(NASMFLAGS) -o $@ $<
+
+# Link
+$(TARGET): $(ALL_OBJ)
+	@echo "Linking..."
+	$(LD) $(LDFLAGS) -o $@ $(ALL_OBJ) $(LIBS)
+
+clean:
+	@echo "Cleaning..."
+	@rm -rf $(BUILD_DIR) $(BIN_DIR)
+	@echo "Clean complete."
+
+rebuild: clean all
+
+help:
+	@echo "Available targets:"
+	@echo "  all     - Build the project (default)"
+	@echo "  clean   - Remove build artifacts"
+	@echo "  rebuild - Clean and build"
+	@echo "  help    - Show this help"
